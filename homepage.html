@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home</title>
-<link rel="icon" href="icons8-home-32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -192,14 +191,127 @@
   }
   .ctrl-btn:hover{ background: var(--glass-strong); transform: translateY(-2px); }
 
+  /* ---------- Settings modal extras ---------- */
+  .settings-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .settings-row:last-of-type{ border-bottom:none; }
+  .settings-row .settings-label{ font-size:14px; }
+  .settings-row .settings-sub{ font-size:12px; color: var(--text-dim); margin-top:2px; }
+  .segmented{
+    display:flex; background: rgba(255,255,255,0.06);
+    border:1px solid var(--glass-border); border-radius:9px; overflow:hidden;
+  }
+  .segmented button{
+    border:none; background:none; color: var(--text-dim);
+    font-size:13px; padding:7px 13px; cursor:pointer;
+    font-family:'Inter', sans-serif;
+  }
+  .segmented button.active{ background: var(--accent); color:#1a1305; }
+  .switch{
+    position:relative; width:42px; height:24px; flex-shrink:0;
+  }
+  .switch input{ opacity:0; width:0; height:0; }
+  .switch .track{
+    position:absolute; inset:0; border-radius:999px; cursor:pointer;
+    background: rgba(255,255,255,0.18); transition: background 0.18s ease;
+  }
+  .switch .track::before{
+    content:''; position:absolute; width:18px; height:18px; border-radius:50%;
+    background:#fff; top:3px; left:3px; transition: transform 0.18s ease;
+  }
+  .switch input:checked + .track{ background: var(--accent); }
+  .switch input:checked + .track::before{ transform: translateX(18px); }
+
+  /* ---------- Calendar popover ---------- */
+  #calendar-popover{
+    position:absolute; top: calc(100% + 12px); left:50%; transform: translateX(-50%);
+    width:270px; z-index:5;
+    background: rgba(28,30,34,0.92);
+    border:1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    padding:16px;
+    display:none;
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+  }
+  #calendar-popover.open{ display:block; }
+  #clock-wrap{ position:relative; }
+  #date{ cursor:pointer; }
+  .cal-header{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:12px;
+  }
+  .cal-header .cal-title{ font-size:14px; font-weight:500; }
+  .cal-nav-btn{
+    width:26px; height:26px; border-radius:7px; border:none;
+    background: rgba(255,255,255,0.08); color: var(--text);
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  .cal-nav-btn:hover{ background: rgba(255,255,255,0.16); }
+  .cal-grid{
+    display:grid; grid-template-columns: repeat(7, 1fr);
+    gap:4px; text-align:center;
+  }
+  .cal-grid .cal-dow{
+    font-size:10px; color: var(--text-dim); padding-bottom:4px;
+    text-transform:uppercase;
+  }
+  .cal-grid .cal-day{
+    font-size:12.5px; padding:6px 0; border-radius:7px; color: var(--text);
+  }
+  .cal-grid .cal-day.other-month{ color: rgba(255,255,255,0.25); }
+  .cal-grid .cal-day.today{
+    background: var(--accent); color:#1a1305; font-weight:600;
+  }
+
+  /* ---------- Pomodoro widget ---------- */
+  #pomodoro-widget{
+    position:fixed; bottom:22px; left:22px; z-index:3;
+    width:200px;
+    background: var(--glass);
+    border:1px solid var(--glass-border);
+    border-radius: var(--radius);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    padding:16px;
+    display:none;
+  }
+  #pomodoro-widget.visible{ display:block; }
+  .pomo-tabs{
+    display:flex; gap:6px; margin-bottom:12px;
+  }
+  .pomo-tabs button{
+    flex:1; border:none; background: rgba(255,255,255,0.06);
+    color: var(--text-dim); font-size:10.5px; padding:6px 4px;
+    border-radius:7px; cursor:pointer; font-family:'Inter', sans-serif;
+  }
+  .pomo-tabs button.active{ background: rgba(255,255,255,0.16); color: var(--text); }
+  .pomo-time{
+    font-family:'Space Grotesk', sans-serif; font-weight:400;
+    font-size:38px; text-align:center; letter-spacing:0.02em;
+    font-variant-numeric: tabular-nums; margin-bottom:12px;
+  }
+  .pomo-controls{ display:flex; gap:8px; }
+  .pomo-controls button{
+    flex:1; border:none; border-radius:9px; padding:9px 0;
+    font-size:13px; font-weight:500; cursor:pointer;
+    font-family:'Inter', sans-serif;
+  }
+  .pomo-start-btn{ background: var(--accent); color:#1a1305; }
+  .pomo-reset-btn{ background: rgba(255,255,255,0.08); color: var(--text); }
+  .pomo-controls button:hover{ opacity:0.88; }
+
   /* ---------- Modal ---------- */
-  #modal-overlay{
+  #modal-overlay, .modal-overlay-base{
     position:fixed; inset:0; z-index:10;
     background: rgba(0,0,0,0.45);
     backdrop-filter: blur(6px);
     display:none; align-items:center; justify-content:center;
   }
-  #modal-overlay.open{ display:flex; }
+  #modal-overlay.open, .modal-overlay-base.open{ display:flex; }
   .modal{
     width: min(360px, 88vw);
     background: rgba(28,30,34,0.86);
@@ -293,6 +405,18 @@
   <div id="clock-wrap">
     <div id="clock">00:00<span class="secs">00</span></div>
     <div id="date">—</div>
+    <div id="calendar-popover">
+      <div class="cal-header">
+        <button class="cal-nav-btn" id="cal-prev">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="cal-title" id="cal-title">—</div>
+        <button class="cal-nav-btn" id="cal-next">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+    </div>
   </div>
 
   <form id="search-form">
@@ -306,11 +430,55 @@
 </div>
 
 <div id="controls">
+  <div class="ctrl-btn" id="settings-btn" title="Settings">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 005 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+  </div>
   <div class="ctrl-btn" id="bg-btn" title="Change background">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
   </div>
   <div class="ctrl-btn" id="bg-clear-btn" title="Remove background">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+  </div>
+</div>
+
+<div id="pomodoro-widget">
+  <div class="pomo-tabs">
+    <button class="pomo-tab active" data-mode="work">Focus</button>
+    <button class="pomo-tab" data-mode="short">Short</button>
+    <button class="pomo-tab" data-mode="long">Long</button>
+  </div>
+  <div class="pomo-time" id="pomo-time">25:00</div>
+  <div class="pomo-controls">
+    <button class="pomo-start-btn" id="pomo-start">Start</button>
+    <button class="pomo-reset-btn" id="pomo-reset">Reset</button>
+  </div>
+</div>
+
+<div id="settings-overlay" class="modal-overlay-base">
+  <div class="modal">
+    <h3>Settings</h3>
+    <div class="settings-row">
+      <div>
+        <div class="settings-label">Clock format</div>
+      </div>
+      <div class="segmented" id="clock-format-toggle">
+        <button data-format="24" class="active">24h</button>
+        <button data-format="12">12h</button>
+      </div>
+    </div>
+    <div class="settings-row">
+      <div>
+        <div class="settings-label">Pomodoro widget</div>
+        <div class="settings-sub">Show a focus timer on the homepage</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="pomodoro-toggle">
+        <span class="track"></span>
+      </label>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="settings-close-btn">Done</button>
+    </div>
   </div>
 </div>
 
@@ -352,6 +520,7 @@
 (function(){
   const STORAGE_KEY = 'homepage.shortcuts.v1';
   const BG_KEY = 'homepage.background.v1';
+  const SETTINGS_KEY = 'homepage.settings.v1';
 
   const shortcutsEl = document.getElementById('shortcuts');
   const modalOverlay = document.getElementById('modal-overlay');
@@ -366,11 +535,17 @@
   const uploadIconBtn = document.getElementById('upload-icon-btn');
   const useDefaultIconBtn = document.getElementById('use-default-icon-btn');
   const saveBtn = document.getElementById('save-btn');
+  const settingsOverlay = document.getElementById('settings-overlay');
+  const dateEl = document.getElementById('date');
+  const calendarPopover = document.getElementById('calendar-popover');
+  const pomodoroWidget = document.getElementById('pomodoro-widget');
 
   let shortcuts = [];
   let dragSrcId = null;
   let editingId = null;      // null = adding new, otherwise id of shortcut being edited
   let customIconData = null; // base64 data URL of uploaded custom icon, or null
+  let settings = { clockFormat: '24', showPomodoro: false };
+  loadSettings();
 
   // ---------- Defaults ----------
   const defaultShortcuts = [
@@ -391,6 +566,17 @@
   function saveShortcuts(){
     try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(shortcuts)); }
     catch(e){ showHint('Could not save shortcuts'); }
+  }
+
+  function loadSettings(){
+    try{
+      const raw = localStorage.getItem(SETTINGS_KEY);
+      if(raw) settings = Object.assign(settings, JSON.parse(raw));
+    }catch(e){ /* keep defaults */ }
+  }
+  function saveSettings(){
+    try{ localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); }
+    catch(e){ showHint('Could not save settings'); }
   }
 
   function loadBackground(){
@@ -475,13 +661,189 @@
     let h = now.getHours();
     const m = pad(now.getMinutes());
     const s = pad(now.getSeconds());
-    document.getElementById('clock').innerHTML = pad(h) + ':' + m + '<span class="secs">' + s + '</span>';
+    let hourStr, suffix = '';
+    if(settings.clockFormat === '12'){
+      suffix = h >= 12 ? ' PM' : ' AM';
+      let h12 = h % 12;
+      if(h12 === 0) h12 = 12;
+      hourStr = h12.toString();
+    } else {
+      hourStr = pad(h);
+    }
+    document.getElementById('clock').innerHTML = hourStr + ':' + m + '<span class="secs">' + s + suffix + '</span>';
     const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    document.getElementById('date').textContent = days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate();
+    dateEl.textContent = days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate();
   }
   tickClock();
   setInterval(tickClock, 1000);
+
+  // ---------- Calendar popover ----------
+  let calViewDate = new Date();
+  function renderCalendar(){
+    const year = calViewDate.getFullYear();
+    const month = calViewDate.getMonth();
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('cal-title').textContent = months[month] + ' ' + year;
+
+    const grid = document.getElementById('cal-grid');
+    grid.innerHTML = '';
+    ['S','M','T','W','T','F','S'].forEach(d=>{
+      const el = document.createElement('div');
+      el.className = 'cal-dow';
+      el.textContent = d;
+      grid.appendChild(el);
+    });
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrevMonth = new Date(year, month, 0).getDate();
+    const today = new Date();
+
+    for(let i = firstDay - 1; i >= 0; i--){
+      const el = document.createElement('div');
+      el.className = 'cal-day other-month';
+      el.textContent = daysInPrevMonth - i;
+      grid.appendChild(el);
+    }
+    for(let d = 1; d <= daysInMonth; d++){
+      const el = document.createElement('div');
+      el.className = 'cal-day';
+      if(d === today.getDate() && month === today.getMonth() && year === today.getFullYear()){
+        el.classList.add('today');
+      }
+      el.textContent = d;
+      grid.appendChild(el);
+    }
+    const totalCells = firstDay + daysInMonth;
+    const trailing = (7 - (totalCells % 7)) % 7;
+    for(let d = 1; d <= trailing; d++){
+      const el = document.createElement('div');
+      el.className = 'cal-day other-month';
+      el.textContent = d;
+      grid.appendChild(el);
+    }
+  }
+
+  dateEl.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    const isOpen = calendarPopover.classList.contains('open');
+    if(isOpen){
+      calendarPopover.classList.remove('open');
+    } else {
+      calViewDate = new Date();
+      renderCalendar();
+      calendarPopover.classList.add('open');
+    }
+  });
+  document.getElementById('cal-prev').addEventListener('click', (e)=>{
+    e.stopPropagation();
+    calViewDate.setMonth(calViewDate.getMonth() - 1);
+    renderCalendar();
+  });
+  document.getElementById('cal-next').addEventListener('click', (e)=>{
+    e.stopPropagation();
+    calViewDate.setMonth(calViewDate.getMonth() + 1);
+    renderCalendar();
+  });
+  document.addEventListener('click', (e)=>{
+    if(!calendarPopover.contains(e.target) && e.target !== dateEl){
+      calendarPopover.classList.remove('open');
+    }
+  });
+
+  // ---------- Settings ----------
+  function applyClockFormatUI(){
+    document.querySelectorAll('#clock-format-toggle button').forEach(btn=>{
+      btn.classList.toggle('active', btn.dataset.format === settings.clockFormat);
+    });
+  }
+  function applyPomodoroVisibility(){
+    pomodoroWidget.classList.toggle('visible', settings.showPomodoro);
+    document.getElementById('pomodoro-toggle').checked = settings.showPomodoro;
+  }
+
+  document.getElementById('settings-btn').addEventListener('click', ()=>{
+    applyClockFormatUI();
+    applyPomodoroVisibility();
+    settingsOverlay.classList.add('open');
+  });
+  document.getElementById('settings-close-btn').addEventListener('click', ()=>{
+    settingsOverlay.classList.remove('open');
+  });
+  settingsOverlay.addEventListener('click', (e)=>{
+    if(e.target === settingsOverlay) settingsOverlay.classList.remove('open');
+  });
+  document.querySelectorAll('#clock-format-toggle button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      settings.clockFormat = btn.dataset.format;
+      applyClockFormatUI();
+      saveSettings();
+      tickClock();
+    });
+  });
+  document.getElementById('pomodoro-toggle').addEventListener('change', (e)=>{
+    settings.showPomodoro = e.target.checked;
+    applyPomodoroVisibility();
+    saveSettings();
+  });
+
+  // ---------- Pomodoro widget ----------
+  const pomoDurations = { work: 25 * 60, short: 5 * 60, long: 15 * 60 };
+  let pomoMode = 'work';
+  let pomoSecondsLeft = pomoDurations.work;
+  let pomoTimer = null;
+  let pomoRunning = false;
+
+  function pomoFormat(s){
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return pad(m) + ':' + pad(sec);
+  }
+  function renderPomo(){
+    document.getElementById('pomo-time').textContent = pomoFormat(pomoSecondsLeft);
+    document.getElementById('pomo-start').textContent = pomoRunning ? 'Pause' : 'Start';
+  }
+  function pomoSwitchMode(mode){
+    pomoMode = mode;
+    pomoSecondsLeft = pomoDurations[mode];
+    pomoRunning = false;
+    clearInterval(pomoTimer);
+    document.querySelectorAll('.pomo-tab').forEach(t=> t.classList.toggle('active', t.dataset.mode === mode));
+    renderPomo();
+  }
+  document.querySelectorAll('.pomo-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=> pomoSwitchMode(tab.dataset.mode));
+  });
+  document.getElementById('pomo-start').addEventListener('click', ()=>{
+    if(pomoRunning){
+      pomoRunning = false;
+      clearInterval(pomoTimer);
+      renderPomo();
+      return;
+    }
+    pomoRunning = true;
+    renderPomo();
+    pomoTimer = setInterval(()=>{
+      pomoSecondsLeft--;
+      if(pomoSecondsLeft <= 0){
+        clearInterval(pomoTimer);
+        pomoRunning = false;
+        pomoSecondsLeft = 0;
+        renderPomo();
+        showHint(pomoMode === 'work' ? 'Focus session complete — take a break' : 'Break complete — back to focus');
+        return;
+      }
+      renderPomo();
+    }, 1000);
+  });
+  document.getElementById('pomo-reset').addEventListener('click', ()=>{
+    pomoRunning = false;
+    clearInterval(pomoTimer);
+    pomoSecondsLeft = pomoDurations[pomoMode];
+    renderPomo();
+  });
+  renderPomo();
 
   // ---------- Shortcuts rendering ----------
   function normalizeUrl(raw){
@@ -678,6 +1040,9 @@
   loadShortcuts();
   renderShortcuts();
   loadBackground();
+  loadSettings();
+  applyClockFormatUI();
+  applyPomodoroVisibility();
 })();
 </script>
 
