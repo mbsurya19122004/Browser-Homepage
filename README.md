@@ -10,10 +10,8 @@ Designed to replace your browser's default new tab page with a distraction-free 
 
 > Add a screenshot here
 
-```
-<img width="1877" height="954" alt="image" src="https://github.com/user-attachments/assets/a39195e9-b979-4ffb-9419-64f2359a4609" />
+<img width="1877" height="954" alt="image" src="https://github.com/user-attachments/assets/21e6be9d-b061-47df-abbd-cc44c28e3940" />
 
-```
 
 ---
 
